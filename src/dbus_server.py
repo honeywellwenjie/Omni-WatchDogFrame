@@ -1,8 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import dbus
 import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
-from gi.repository import GObject
+from gi.repository import GLib
 
+from logger import logger
 
 class watchdog_dbus(dbus.service.Object):
     def __init__(self):
@@ -29,8 +33,15 @@ class watchdog_dbus(dbus.service.Object):
         print('watchdog_dbus_settime: %s' % message)
         return 'watchdog_dbus_settime Received: %s' % message
 
-DBusGMainLoop(set_as_default=True)
-loop = GObject.MainLoop()
-watchdog_dbus()
-loop.run()
 
+def soft_watchdog_main():
+    logger.info("Starting soft-watchdog daemon ...")
+
+    DBusGMainLoop(set_as_default=True)
+    mainloop = GLib.MainLoop()
+    watchdog_dbus()
+    mainloop.run()
+    print('dbus main loop running ...')
+
+if __name__ == "__main__":
+    soft_watchdog_main()

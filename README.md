@@ -17,3 +17,5 @@ The software layer continuously monitors active processes/threads and reports th
 If any critical software watchdog fails, times out, or its supervision thread dies, the framework intentionally stops kicking the hardware watchdog, allowing the hardware watchdog to perform a clean system reset.
 
 This ensures strict “fail-safe by design” behavior.
+
+![Architecture Diagram](docs/architecture.jpg)

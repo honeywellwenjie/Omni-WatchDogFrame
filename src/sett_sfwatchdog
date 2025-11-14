@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import dbus
+import time
+
+if len(sys.argv) != 3:
+    print("Usage: sett_sfwatchdog [name] [timtout time]")
+    sys.exit(1)
+
+watchdog_name = sys.argv[1]
+timeout_time = sys.argv[2]
+
+if not timeout_time.isdigit():
+    print("timtout time must digit. %s is not" % timeout_time)
+    sys.exit(2)
+
+bus = dbus.SystemBus()
+remote_object = bus.get_object('com.example.SFwatchdogService', '/com/example/SFwatchdogObject')
+remote_interface = dbus.Interface(remote_object, 'com.example.SFwatchdog')
+
+cmd = watchdog_name + ":" + timeout_time
+
+response_a = remote_interface.sfwatchdog_dbus_settime(cmd)
+print(response_a)

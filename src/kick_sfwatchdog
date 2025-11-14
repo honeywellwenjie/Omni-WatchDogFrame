@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import dbus
+import time
+
+if len(sys.argv) != 2:
+    print("Usage: reg_sfwatchdog [name]")
+    sys.exit(1)
+
+watchdog_name = sys.argv[1]
+
+bus = dbus.SystemBus()
+remote_object = bus.get_object('com.example.SFwatchdogService', '/com/example/SFwatchdogObject')
+remote_interface = dbus.Interface(remote_object, 'com.example.SFwatchdog')
+
+response_a = remote_interface.sfwatchdog_dbus_kick(watchdog_name)
+print(response_a)

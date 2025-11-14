@@ -19,3 +19,15 @@ If any critical software watchdog fails, times out, or its supervision thread di
 This ensures strict “fail-safe by design” behavior.
 
 ![Architecture Diagram](docs/architecture.jpg)
+
+
+## License
+
+This project is licensed under the Apache License 2.0 with an additional attribution requirement.
+
+You must retain the following author credit in all copies or substantial portions of the software:
+
+    Original Author: Wenjie Zhang
+
+See the [LICENSE](./LICENSE) file for full details.
+

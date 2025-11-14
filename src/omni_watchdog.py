@@ -39,7 +39,8 @@ def main():
             break
 
         if not monitor_threads(dbus_thread, soft_thread):
-            os.system("sudo reboot &")
+            log.info("found sub watchdog timeout. trigger system reboot")
+            #os.system("sudo reboot &")
             break
 
         time.sleep(5)

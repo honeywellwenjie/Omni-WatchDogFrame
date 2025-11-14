@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import time
 import threading
 import dbus
 import dbus.service
@@ -9,6 +10,7 @@ from gi.repository import GLib
 
 from logger import logger
 
+SOFT_WATCHDOG_SCAN_INTERVAL = 5
 soft_watchdog_list = []
 
 class sfwatchdog_dbus(dbus.service.Object):
@@ -141,19 +143,29 @@ class soft_watchdog:
             self.log.error("soft_watchdog %s not exist" % name)
             return False
 
-
-def soft_watchdog_main():
-    logger.info("Starting soft-watchdog daemon ...")
-
-    DBusGMainLoop(set_as_default=True)
+def softwatchdog_dbus_thread():
+    logger.info("softwatchdog_dbus_thread starting ...")
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     sfwatchdog_dbus()
+    loop = GLib.MainLoop()
+    log.info("sf watchdog server is running...")
+    loop.run()
 
-    logger.info("DBus main loop starting ...")
-    mainloop = GLib.MainLoop()
-    mainloop.run()
-
-    logger.info("DBus main loop exited")
-
+def monitor_softwatchdog_thread():
+    logger.info("  |-- monitor monitor_softwatchdog_thread starting ...")
+    no_timeout = True
+    while no_timeout:
+        for soft_wthdog in soft_watchdog_list:
+            if soft_wthdog['started']:
+                soft_wthdog['current_time'] += SOFT_WATCHDOG_SCAN_INTERVAL
+                if soft_wthdog['current_time'] > soft_wthdog['timeout']:
+                    logger.error(f"{soft_wthdog['name']} watchdog timed out!")
+                    no_timeout = False
+        time.sleep(SOFT_WATCHDOG_SCAN_INTERVAL)
 
 if __name__ == "__main__":
-    soft_watchdog_main()
+    dbus_thread = threading.Thread(target=softwatchdog_dbus_thread)
+    mwthdog_thread = threading.Thread(target=monitor_softwatchdog_thread)
+
+    dbus_thread.start()
+    mwthdog_thread.start()

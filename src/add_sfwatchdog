@@ -11,7 +11,8 @@ if len(sys.argv) != 2:
 
 watchdog_name = sys.argv[1]
 
-bus = dbus.SystemBus()
+#bus = dbus.SystemBus()
+bus = dbus.SessionBus()
 remote_object = bus.get_object('com.example.SFwatchdogService', '/com/example/SFwatchdogObject')
 remote_interface = dbus.Interface(remote_object, 'com.example.SFwatchdog')
 

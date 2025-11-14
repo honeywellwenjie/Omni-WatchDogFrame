@@ -16,7 +16,8 @@ if not timeout_time.isdigit():
     print("timtout time must digit. %s is not" % timeout_time)
     sys.exit(2)
 
-bus = dbus.SystemBus()
+#bus = dbus.SystemBus()
+bus = dbus.SessionBus()
 remote_object = bus.get_object('com.example.SFwatchdogService', '/com/example/SFwatchdogObject')
 remote_interface = dbus.Interface(remote_object, 'com.example.SFwatchdog')
 

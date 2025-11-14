@@ -11,7 +11,6 @@ from logger import logger
 
 soft_watchdog_list = []
 
-
 class sfwatchdog_dbus(dbus.service.Object):
     INTERFACE = 'com.example.SFwatchdog'
     OBJECT_PATH = '/com/example/SFwatchdogObject'
@@ -21,11 +20,11 @@ class sfwatchdog_dbus(dbus.service.Object):
         self.log = logger
         self.sf_wthdog = soft_watchdog()
 
-        bus = dbus.SystemBus()
+        bus = dbus.SessionBus()
         bus_name = dbus.service.BusName(self.BUS_NAME, bus=bus)
         dbus.service.Object.__init__(self, bus_name, self.OBJECT_PATH)
 
-        self.log.info("  |-- watchdog dbus bootup ...")
+        self.log.info("  |-- watchdog dbus bootup ... (session bus)")
 
     @dbus.service.method(INTERFACE, in_signature='s', out_signature='s')
     def sfwatchdog_dbus_add(self, message):

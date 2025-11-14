@@ -148,7 +148,7 @@ def softwatchdog_dbus_thread():
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     sfwatchdog_dbus()
     loop = GLib.MainLoop()
-    log.info("sf watchdog server is running...")
+    logger.info("sf watchdog server is running...")
     loop.run()
 
 def monitor_softwatchdog_thread():

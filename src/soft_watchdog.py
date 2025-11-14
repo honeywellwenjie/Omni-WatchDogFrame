@@ -11,8 +11,9 @@ from gi.repository import GLib
 from logger import logger
 
 SOFT_WATCHDOG_SCAN_INTERVAL = 5
-soft_watchdog_list = []
+SOFT_WATCHDOG_DEFAULT_TIMEOUT = 60
 
+soft_watchdog_list = []
 class sfwatchdog_dbus(dbus.service.Object):
     INTERFACE = 'com.example.SFwatchdog'
     OBJECT_PATH = '/com/example/SFwatchdogObject'
@@ -101,7 +102,7 @@ class soft_watchdog:
             sf_wthdog_obj = {
                 'name': name,
                 'started': False,
-                'timeout': 60,
+                'timeout': SOFT_WATCHDOG_DEFAULT_TIMEOUT,
                 'current_time': 0,
             }
             self.list.append(sf_wthdog_obj)

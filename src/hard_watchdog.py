@@ -3,11 +3,12 @@
 
 from platform.fakeHardware_watchdog import FakeHardwareWatchdog
 
-hwwatchdog = FakeHardwareWatchdog()
-
+hwwatchdog = None
 class hardware_watchdog:
     def __init__(self, path=None):
-        hwwatchdog.__init__(path)
+        global hwwatchdog
+        if hwwatchdog is None:
+            hwwatchdog = FakeHardwareWatchdog(path)
 
     def kick(self):
         return hwwatchdog.kick()
@@ -17,4 +18,3 @@ class hardware_watchdog:
 
     def close(self):
         return hwwatchdog.close()
-

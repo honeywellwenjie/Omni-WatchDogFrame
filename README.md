@@ -41,7 +41,7 @@ Consult your platform documentation if you find that `/dev/watchdog0` is occupie
 Omni-WatchDogFrame uses a unified hardware watchdog abstraction.  
 Any platform—standard or non-standard—can integrate with the framework by implementing a minimal hardware watchdog class with the following methods:
 
-```python
+python
 __init__(self, path)
 kick(self)
 sett(self, timeout)

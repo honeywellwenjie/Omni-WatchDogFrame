@@ -16,33 +16,33 @@ class LinuxHardwareWatchdog:
         self.dev = path if path is not None else WATCHDOG_DEV
         try:
             self.fd = os.open(self.dev, os.O_WRONLY)
-            self.log.info("Jetson HW watchdog device opened successfully: %s" % self.dev)
+            self.log.info("HW watchdog device opened successfully: %s" % self.dev)
         except Exception as e:
-            self.log.error("Failed to open Jetson watchdog device: %s" % str(e))
+            self.log.error("Failed to open watchdog device: %s" % str(e))
             self.fd = None
 
     def kick(self):
         if self.fd is None:
-            self.log.error("Jetson HW watchdog not opened")
+            self.log.error("HW watchdog not opened")
             return False
         try:
             os.write(self.fd, b'\0')
-            self.log.debug("Jetson watchdog kicked")
+            self.log.debug("watchdog kicked")
             return True
         except Exception as e:
-            self.log.error("Failed to kick Jetson watchdog: %s" % str(e))
+            self.log.error("Failed to kick watchdog: %s" % str(e))
             return False
 
     def sett(self, timeout):
         if self.fd is None:
-            self.log.error("Jetson HW watchdog not opened")
+            self.log.error("HW watchdog not opened")
             return False
         try:
             fcntl.ioctl(self.fd, WDIOC_SETTIMEOUT, struct.pack('L', timeout), True)
-            self.log.info("Jetson watchdog timeout set to %d" % timeout)
+            self.log.info("watchdog timeout set to %d" % timeout)
             return True
         except Exception as e:
-            self.log.error("Failed to set Jetson watchdog timeout: %s" % str(e))
+            self.log.error("Failed to set watchdog timeout: %s" % str(e))
             return False
 
     def close(self):
@@ -50,9 +50,9 @@ class LinuxHardwareWatchdog:
             return True
         try:
             os.close(self.fd)
-            self.log.info("Jetson watchdog device closed")
+            self.log.info("watchdog device closed")
         except Exception as e:
-            self.log.error("Failed to close Jetson watchdog: %s" % str(e))
+            self.log.error("Failed to close watchdog: %s" % str(e))
         self.fd = None
         return True
 

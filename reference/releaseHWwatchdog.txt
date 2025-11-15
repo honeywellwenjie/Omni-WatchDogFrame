@@ -1,0 +1,14 @@
+For reaspberryPi 3B+
+Image: https://downloads.raspberrypi.com/raspios_full_armhf/images/raspios_full_armhf-2025-10-02/2025-10-01-raspios-trixie-armhf-full.img.xz
+
+sudo mkdir -p /etc/systemd/system.conf.d
+sudo nano /etc/systemd/system.conf.d/disable-watchdog.conf
+
+[Manager]
+RuntimeWatchdogSec=0
+RuntimeWatchdogPreSec=0
+
+sudo systemctl daemon-reload
+sudo systemctl daemon-reexec
+
+

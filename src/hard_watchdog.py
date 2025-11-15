@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from platform.fakeHardware_watchdog import FakeHardwareWatchdog
+from linux_hwtd import FakeHardwareWatchdog
 
 hwwatchdog = None
 class hardware_watchdog:

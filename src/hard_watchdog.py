@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from linux_hwtd import FakeHardwareWatchdog
+#from linux_hwtd import LinuxHardwareWatchdog
 
 hwwatchdog = None
 class hardware_watchdog:
@@ -9,6 +10,7 @@ class hardware_watchdog:
         global hwwatchdog
         if hwwatchdog is None:
             hwwatchdog = FakeHardwareWatchdog(path)
+            #hwwatchdog = LinuxHardwareWatchdog(path)
 
     def kick(self):
         return hwwatchdog.kick()

@@ -9,6 +9,7 @@ from logger import logger
 from soft_watchdog import softwatchdog_dbus_thread, monitor_softwatchdog_thread
 from hard_watchdog import hardware_watchdog
 
+VERSION = "1.0.0"
 
 def monitor_threads(*threads):
     for t in threads:
@@ -20,7 +21,7 @@ def monitor_threads(*threads):
 
 def main():
     log = logger
-    log.info("Omni-watchdog daemon booting")
+    log.info(f"Omni-watchdog daemon booting  (version {VERSION})")
 
     hwd = hardware_watchdog()
     hwd.sett(30)
@@ -39,14 +40,13 @@ def main():
             break
 
         if not monitor_threads(dbus_thread, soft_thread):
-            log.info("found sub watchdog timeout. trigger system reboot")
+            log.info("found sub watchdog timeout. trigger system reboot or no kick HW watchdog")
             #os.system("sudo reboot &")
             break
 
         time.sleep(5)
 
-    hwd.close()
-
+    #hwd.close()
 
 if __name__ == "__main__":
     main()

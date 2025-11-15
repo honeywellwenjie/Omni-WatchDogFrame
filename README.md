@@ -1,5 +1,7 @@
 # Omni-WatchDogFrame — A Cross-Platform Hybrid Watchdog Framework for Embedded Reliability
 
+## Overview
+
 Omni-WatchDogFrame is a hybrid software-hardware watchdog framework designed to provide high-reliability process supervision across heterogeneous embedded platforms.
 While most embedded systems expose only a single hardware watchdog device, Omni-WatchDogFrame virtualizes this mechanism and builds a multi-layer software watchdog infrastructure on top of it, enabling unlimited software-level watchdog instances for different modules, threads, or critical services.
 

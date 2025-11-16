@@ -69,6 +69,31 @@ The framework can be viewed as a generalized reliability layer—a foundation fo
 
 ![Architecture Diagram](docs/architecture.jpg)
 
+## DBus Runtime Note
+The current version of Omni-WatchDogFrame runs on DBus Session Bus by default.
+This choice is intentional—Session Bus makes debugging, testing and live demonstration easier on development machines (including x86, Jetson and Raspberry Pi with UI environments).
+However, for production / deployed embedded systems, it is strongly recommended to switch to System Bus, so that:
+
+
+The watchdog DBus service becomes system-level instead of user-level
+
+
+No desktop/UI session is required
+
+
+The framework continues running even without login sessions
+
+
+External supervised processes can safely communicate with the watchdog daemon
+
+
+In short:
+
+Session Bus = development convenience
+System Bus = real deployment reliability
+
+Both modes are fully supported by the framework and require only a one-line change when switching.
+
 
 ## License
 
